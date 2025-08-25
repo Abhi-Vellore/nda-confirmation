@@ -53,6 +53,43 @@
 
     // Update the countdown every second
     const countdownInterval = setInterval(updateCountdown, 1000);
+
+    // --- Slack Notification Functionality ---
+    /**
+     * Sends a notification to a Slack channel via a Pipedream webhook.
+     * This function is triggered when the confirmation page loads.
+     */
+    async function sendSlackNotification() {
+      // IMPORTANT: Replace 'YOUR_PIPEDREAM_WEBHOOK_URL_HERE' with the actual Webhook URL you copied from Pipedream.
+      const webhookUrl = 'https://eoqt2fodnd9e7na.m.pipedream.net';
+
+      // You can send any data as a JSON payload. For a generic message, an empty object is fine,
+      // as the Pipedream workflow already defines the message content.
+      const payload = {};
+
+      try {
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (response.ok) {
+          console.log('Slack notification sent successfully!');
+        } else {
+          console.error('Failed to send Slack notification:', response.status, response.statusText);
+        }
+      } catch (error) {
+        console.error('Error sending Slack notification:', error);
+      }
+    }
+
+    // Call the function to send the Slack notification when the page loads
+    // Ensure this runs only once per page load.
+    window.addEventListener('load', sendSlackNotification);
+
   </script>
 </body>
 </html>
