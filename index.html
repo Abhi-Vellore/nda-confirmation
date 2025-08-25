@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You're All Set!</title>
+  <!-- Tailwind CSS CDN for easy styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Load Inter font from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Meta refresh tag to redirect after 7 seconds.
+       *** IMPORTANT: Replace 'https://powerforms.docusign.net/NEW-FORM-ID' with the actual URL of your *next* DocuSign form. ***
+  -->
+  <meta http-equiv="refresh" content="7;url=https://powerforms.docusign.net/NEW-FORM-ID">
+  <style>
+    /* Custom font-family for Inter, with fallbacks */
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col justify-center items-center p-4">
+  <!-- Main content container, centered and styled -->
+  <div class="bg-white p-8 md:p-12 rounded-2xl shadow-lg max-w-lg w-full text-center">
+    <h1 class="text-3xl md:text-4xl font-extrabold text-indigo-700 mb-4">You're All Set! ✨</h1>
+    <p class="text-lg md:text-xl text-gray-800 mb-3">Thanks for signing the NDA.</p>
+    <p class="text-lg md:text-xl text-gray-800 mb-6">Please take a seat — someone will be with you shortly.</p>
+    <p class="text-md md:text-lg text-gray-600 font-medium italic">This screen will refresh in <span id="countdown" class="font-bold">7</span> seconds…</p>
+  </div>
+
+  <script>
+    // Get the countdown span element
+    const countdownElement = document.getElementById('countdown');
+    // Set the initial countdown time
+    let timeLeft = 7;
+
+    /**
+     * Updates the countdown timer display.
+     * Decrements timeLeft and updates the text content.
+     */
+    function updateCountdown() {
+      countdownElement.textContent = timeLeft;
+      timeLeft--;
+
+      // If time runs out, clear the interval. The meta refresh handles the actual redirect.
+      if (timeLeft < 0) {
+        clearInterval(countdownInterval);
+      }
+    }
+
+    // Call updateCountdown immediately to show the initial 7 seconds
+    updateCountdown();
+
+    // Update the countdown every second
+    const countdownInterval = setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
